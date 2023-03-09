@@ -3,7 +3,7 @@ from django.http.response import HttpResponseNotFound, JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
-from .models import Product, Order, MyUser, Order, Category, Brand
+from .models import Product, Order, myUser, Order, Category, Brand
 from django.contrib.auth import authenticate, login, logout
 from .forms import MyUserRegistrationForm, ProfileForm, ContactForm
 from django.contrib import messages
@@ -28,7 +28,7 @@ def loginPage(request):
         email.lower()
         password = request.POST.get('password')
         try:
-            user=MyUser.objects.get(email=email)  
+            user=myUser.objects.get(email=email)  
         except:
             messages.error(request, 'email does not exist')
         user=authenticate(request, email=email, password=password)
@@ -250,7 +250,7 @@ def myorder(request, pk):
 
 
 def profile_address(request, pk):
-    user=MyUser.objects.get(pk=pk)
+    user=myUser.objects.get(pk=pk)
     return render(request, 'shop/billing_address.html', {'user':user})
 
 class Contact(FormView):

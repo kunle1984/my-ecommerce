@@ -3,7 +3,9 @@ from . import views
 from django.contrib.auth.views import LogoutView
 from . views import Contact, PaymentFailedView, PaymentSuccessView,checkout
 
+
 urlpatterns = [
+    
     path('', views.index, name="home" ),
     path('view-cart/', views.viewCart, name="view-cart" ),
     path('view-wishlist/', views.viewWishList, name="view-wishlist" ),

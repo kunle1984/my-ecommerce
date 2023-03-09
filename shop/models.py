@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 
-class MyUser(AbstractUser):
+class myUser(AbstractUser):
 
     name = models.CharField(max_length=200, null=True)
     email = models.EmailField(unique=True, null=True)
@@ -16,7 +16,7 @@ class MyUser(AbstractUser):
     state=models.CharField(max_length=200, null=True, blank=True)
     postcode=models.CharField(max_length=200, null=True, blank=True)
     city=models.CharField(max_length=200, null=True, blank=True)
-    USERNAME_FIELD = 'email'
+    #USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
 
@@ -33,7 +33,7 @@ class Category(models.Model):
         return self.name
 
 class Product(models.Model):
-    user=models.ForeignKey(MyUser, on_delete=models.CASCADE, null=True, blank=True)
+    user=models.ForeignKey(myUser, on_delete=models.CASCADE, null=True, blank=True)
     title=models.CharField(max_length=200, null=True)
     price=models.FloatField(null=True, blank=True)
     discount_price=models.FloatField(null=True, blank=True)
@@ -54,7 +54,7 @@ class Product(models.Model):
 
 
 class Order(models.Model):
-    user=models.ForeignKey(MyUser, on_delete=models.CASCADE, null=True, blank=True)
+    user=models.ForeignKey(myUser, on_delete=models.CASCADE, null=True, blank=True)
     order_number=models.CharField(max_length=50, blank=True, null=True, verbose_name="Order Track Id")
     first_name=models.CharField(max_length=200, blank=False, null=False)
     last_name=models.CharField(max_length=200, blank=False, null=False)

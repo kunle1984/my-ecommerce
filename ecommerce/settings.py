@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,14 +22,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-x#pv)v)cj5!$3n__f&9$b8x6b^(&$vo@=p94!$uprt0j_d9^@j'
+SECRET_KEY =config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG =config('DEBUG', cast=bool)
 
 
-AUTH_USER_MODEL = 'shop.MyUser'
-ALLOWED_HOSTS = ['k-ecommerce-production.up.railway.app' ,'127.0.0.1']
+AUTH_USER_MODEL = 'shop.myUser'
+ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
@@ -72,7 +73,7 @@ ROOT_URLCONF = 'ecommerce.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS':[],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -90,13 +91,28 @@ WSGI_APPLICATION = 'ecommerce.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+"""
+# connecting with supabase
+DATABASES = {
+    'default': {
+         #'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': config('ENGINE'),
+        'NAME':  config('NAME'),
+        'USER':  config('USER'),
+        'PASSWORD': config('PASSWORD'),
+        'HOST':  config('HOST'),
+        'PORT':  config('PORT', cast=int)
+    }
+}
+
 
 
 # Password validation
@@ -129,6 +145,7 @@ LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
 
+
 USE_I18N = True
 
 USE_TZ = True
@@ -149,28 +166,24 @@ STATICFILES_DIR=[
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-email_host= 'smtp.risinghopegirlseducation.com'
-email_port =465
-email_use_ssl = True
-email_host_user ='admin@risinghopegirlseducation.com'
-email_host_password = 'myadmin_1234'
+
 
 # To email: contact form
-recipient_address='kunlefes089@gmail.com'
+
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST =  email_host
-EMAIL_PORT =email_port
-EMAIL_USE_SSL = email_use_ssl
-EMAIL_HOST_USER =email_host_user
-EMAIL_HOST_PASSWORD =email_host_password
+EMAIL_HOST =  config('email_host')
+EMAIL_PORT =config('email_port', cast=int)
+EMAIL_USE_SSL = config('email_use_ssl', cast=bool)
+EMAIL_HOST_USER =config('email_host_user')
+EMAIL_HOST_PASSWORD =config('email_host_password')
 
 # To email: contact form
-RECIPIENT_ADDRESS=recipient_address
+RECIPIENT_ADDRESS=config('recipient_address')
 
 CORS_ALLOWED_ORIGINS = [
         'https://k-ecommerce-production.up.railway.app',
-        "http://localhost:8080"
+        "http://localhost:8000"
         
     ]
 
@@ -178,17 +191,29 @@ CSRF_TRUSTED_ORIGINS = ['https://k-ecommerce-production.up.railway.app']
 CORS_ALLOW_CREDENTIALS=True
 
 if DEBUG:
-    STRIPE_SECRET_KEY='sk_test_51M5nlOLKr5zDNqsyIfxLoo1XlhQrLHcM65IE8ZKbWM2JvxGvHoSxV8jwxkfnVzRmQLRiexu120XuxaArZPvHqSm400GUmidu76'
-    STRIPE_PUBLISHABLE_KEY='pk_test_51M5nlOLKr5zDNqsywjUPyZHSdKnLHQELRnvl5UsIumwcqpCUvGJBzHjpItpaVlFBc2xmi8hBKoDgy1z1coFFkGbx003Vm3ghc4'
+    STRIPE_SECRET_KEY=config('STRIPE_SECRET_KEY')
+    STRIPE_PUBLISHABLE_KEY=config('STRIPE_PUBLISHABLE_KEY')
 
 
-#AUTHENTICATION_BACKENDS = (
-    #"allauth.account.auth_backends.AuthenticationBackend",
+AUTHENTICATION_BACKENDS = (
+   
+   'django.contrib.auth.backends.ModelBackend',
+   "allauth.account.auth_backends.AuthenticationBackend",
     #'shop.MyUser'
-#)
+)
 
 
-SITE_ID = 1
+SITE_ID =1
 ACCOUNT_EMAIL_VERIFICATION = "none"
 LOGIN_REDIRECT_URL = "home"
 ACCOUNT_LOGOUT_ON_GET = True
+ACCOUNT_USER_MODEL_EMAIL_FIELD = "email"
+ACCOUNT_UNIQUE_EMAIL = True
+
+#SOCIAL_AUTH_URL_NAMESPACE = 'social'
+
+#AUTHORIZE_REDIRECT_URLS=(
+#'http://localhost:8000/complete/google-oauth2/',
+#https://project-domain.com/complete/google-oauth2/
+#)
+

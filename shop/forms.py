@@ -1,6 +1,6 @@
 
 from django import forms
-from .models import  MyUser
+from .models import  myUser
 from django.conf import settings
 from django.core.mail import send_mail
 from django.forms import CheckboxInput, ModelForm
@@ -14,7 +14,7 @@ from django.forms import Textarea, TextInput
 
 class MyUserRegistrationForm(UserCreationForm):
     class Meta:
-        model=MyUser
+        model=myUser
         fields= ['username', 'email', 'password1', 'password2', ]
         widgets = {
             
@@ -48,7 +48,7 @@ class MyUserRegistrationForm(UserCreationForm):
 
 class ProfileForm(ModelForm):
     class Meta:
-        model = MyUser
+        model = myUser
         fields = [ 'name', 'username', 'email',  'image', 'mobile_number', 'postcode',  'country', 'state', 'city', 'address']
         widgets = {
             'birth_date' : DatePickerInput(),
