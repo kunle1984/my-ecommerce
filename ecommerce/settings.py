@@ -183,7 +183,7 @@ EMAIL_HOST_PASSWORD =config('email_host_password')
 RECIPIENT_ADDRESS=config('recipient_address')
 
 CORS_ALLOWED_ORIGINS = [
-        'https://k-ecommerce.onrender.com/', 
+        'https://k-ecommerce.onrender.com', 
         
     ]
 
