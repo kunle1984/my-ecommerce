@@ -22,7 +22,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY =config('SECRET_KEY')
+#SECRET_KEY =config('SECRET_KEY')
+SECRET_KEY ='django-insecure-x#pv)v)cj5!$3n__f&9$b8x6b^(&$vo@=p94!$uprt0j_d9^@j'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG =config('DEBUG', cast=bool)
@@ -182,12 +183,11 @@ EMAIL_HOST_PASSWORD =config('email_host_password')
 RECIPIENT_ADDRESS=config('recipient_address')
 
 CORS_ALLOWED_ORIGINS = [
-        'https://k-ecommerce-production.up.railway.app',
-        "http://localhost:8000"
+        'https://k-ecommerce.onrender.com/', 
         
     ]
 
-CSRF_TRUSTED_ORIGINS = ['https://k-ecommerce-production.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://k-ecommerce.onrender.com/']
 CORS_ALLOW_CREDENTIALS=True
 
 if DEBUG:
