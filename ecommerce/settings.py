@@ -30,7 +30,7 @@ DEBUG =config('DEBUG', cast=bool)
 
 
 AUTH_USER_MODEL = 'shop.myUser'
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['k-ecommerce.onrender.com']
 # Application definition
 
 INSTALLED_APPS = [
