@@ -16,7 +16,7 @@ class MyUser(AbstractUser):
     state=models.CharField(max_length=200, null=True, blank=True)
     postcode=models.CharField(max_length=200, null=True, blank=True)
     city=models.CharField(max_length=200, null=True, blank=True)
-    USERNAME_FIELD = 'email'
+   #USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
 

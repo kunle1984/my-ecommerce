@@ -122,15 +122,7 @@ DATABASES = {
  
 }
 
-#Full database set-up
-""" 'default': {
-    'ENGINE': 'django.db.backends.postgresql',
-    'NAME': 'dutmiaaz',
-    'USER': 'dutmiaaz',
-    'PASSWORD': '7nSEF5lUa0fmbprzJzhIALB_fjBZpvf9',
-    'HOST': 'silly.db.elephantsql.com',
-    'PORT': 5432
-  }"""
+
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
